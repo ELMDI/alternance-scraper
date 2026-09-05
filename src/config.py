@@ -110,7 +110,7 @@ POSITIVE_PATTERNS: Dict[str, int] = {
 
 # Minimum score for an offer to pass the filter (0 = accept everything
 # that isn't excluded by negative patterns).
-MIN_SCORE: int = 0
+MIN_SCORE: int = 4
 
 # ======================================================================
 # 5. WTTJ — Algolia credentials (public, embedded in their frontend JS)
