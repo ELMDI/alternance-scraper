@@ -1,0 +1,55 @@
+name: Daily Alternance Scraper
+
+on:
+  schedule:
+    # Tous les jours à 08:00 UTC (10:00 heure de Paris)
+    - cron: '0 8 * * *'
+  workflow_dispatch:
+    inputs:
+      dry_run:
+        description: 'Mode test sans envoi de messages'
+        required: false
+        default: 'false'
+        type: boolean
+
+permissions:
+  contents: write
+
+jobs:
+  scrape:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python 3.12
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+          cache: 'pip'
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Run scraper
+        env:
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+          DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}
+          WTTJ_ALGOLIA_APP_ID: ${{ secrets.WTTJ_ALGOLIA_APP_ID }}
+          WTTJ_ALGOLIA_API_KEY: ${{ secrets.WTTJ_ALGOLIA_API_KEY }}
+          LBA_API_KEY: ${{ secrets.LBA_API_KEY }}
+          FRANCE_TRAVAIL_CLIENT_ID: ${{ secrets.FRANCE_TRAVAIL_CLIENT_ID }}
+          FRANCE_TRAVAIL_CLIENT_SECRET: ${{ secrets.FRANCE_TRAVAIL_CLIENT_SECRET }}
+          DRY_RUN: ${{ github.event.inputs.dry_run == 'true' && '1' || '0' }}
+        run: python -m src.main
+
+      - name: Commit updated seen_jobs.db
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add seen_jobs.db
+          git diff --staged --quiet || git commit -m "chore: update seen_jobs.db [skip ci]"
+          git push
