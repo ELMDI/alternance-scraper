@@ -116,8 +116,8 @@ MIN_SCORE: int = 4
 # 5. WTTJ — Algolia credentials (public, embedded in their frontend JS)
 # ======================================================================
 
-WTTJ_ALGOLIA_APP_ID: str = os.getenv("WTTJ_ALGOLIA_APP_ID") or "CSEKHVMS53"
-WTTJ_ALGOLIA_API_KEY: str = os.getenv("WTTJ_ALGOLIA_API_KEY") or "4bd8f6215d0cc52b26430765769e65a0"
+WTTJ_ALGOLIA_APP_ID: str = "CSEKHVMS53"
+WTTJ_ALGOLIA_API_KEY: str = "4bd8f6215d0cc52b26430765769e65a0"
 WTTJ_ALGOLIA_INDEX: str = "wk_cms_jobs_production"
 WTTJ_HITS_PER_PAGE: int = 50
 
