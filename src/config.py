@@ -85,6 +85,7 @@ NEGATIVE_PATTERNS: List[str] = [
     "stage 6 mois",
     "cdi uniquement",
     "expérience 5 ans",
+    "2026",
 ]
 
 POSITIVE_PATTERNS: Dict[str, int] = {
