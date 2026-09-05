@@ -55,6 +55,7 @@ class WTTJScraper(BaseScraper):
             "x-algolia-application-id": config.WTTJ_ALGOLIA_APP_ID,
             "x-algolia-api-key": config.WTTJ_ALGOLIA_API_KEY,
             "Content-Type": "application/json",
+            "Referer": "https://www.welcometothejungle.com/",
         }
 
         filters = (
