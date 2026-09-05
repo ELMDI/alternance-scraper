@@ -42,7 +42,9 @@ def _contains_any(text: str, patterns: Sequence[str]) -> bool:
 def _is_excluded(job: Job) -> bool:
     """Return ``True`` if the job must be discarded."""
     combined = _normalize(f"{job.title} {job.description}")
-
+    # Exclure obligatoirement si 2027 n'est pas mentionné
+    if "2027" not in combined:
+        return True
     # Check for explicit exclusion patterns.
     for pattern in config.NEGATIVE_PATTERNS:
         if pattern.lower() in combined:
