@@ -209,7 +209,7 @@ DISCORD_WEBHOOK_URL: str = os.getenv("DISCORD_WEBHOOK_URL", "")
 TELEGRAM_MAX_LENGTH: int = 4096
 
 # Send a heartbeat message when no new offers are found?
-HEARTBEAT_ENABLED: bool = os.getenv("HEARTBEAT_ENABLED", "1") == "1"
+HEARTBEAT_ENABLED: bool = False
 
 # ======================================================================
 # 10. Database
